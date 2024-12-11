@@ -59,7 +59,7 @@ class TodoListViewModel @Inject constructor(
             currentState.copy(
                 taskList = currentState.taskList.map { itm ->
                     if (itm.id == item.id) {
-                        itm.copy(isDone = !itm.isDone)
+                        itm.copy(completed = !itm.completed)
                     } else {
                         itm
                     }

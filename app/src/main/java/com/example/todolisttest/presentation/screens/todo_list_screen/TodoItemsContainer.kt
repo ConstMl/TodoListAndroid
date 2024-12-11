@@ -44,10 +44,10 @@ fun TodoItemsContainer(
 fun TodoItemsContainerPreview() {
     TodoItemsContainer(
         todoItems = listOf(
-            TaskListItemModel(title = "Todo Item 1", isDone = true),
-            TaskListItemModel(title = "Todo Item 2"),
-            TaskListItemModel(title = "Todo Item 3"),
-            TaskListItemModel(title = "Todo Item 4", isDone = true),
+            TaskListItemModel(id = 1, title = "Todo Item 1", completed = true),
+            TaskListItemModel(id = 2, title = "Todo Item 2"),
+            TaskListItemModel(id = 3, title = "Todo Item 3"),
+            TaskListItemModel(id = 4, title = "Todo Item 4", completed = true),
         )
     )
 }

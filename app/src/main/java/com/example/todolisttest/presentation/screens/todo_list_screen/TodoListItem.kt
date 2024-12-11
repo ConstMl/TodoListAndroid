@@ -45,33 +45,33 @@ internal fun TodoListItem(
     val todoItemIconColor = MaterialTheme.colorScheme.tertiary
     val todoItemTextColor = MaterialTheme.colorScheme.tertiary
 
-    val backgroundColor = if (todoItem.isDone) {
+    val backgroundColor = if (todoItem.completed) {
         todoItemBackgroundColor.copy(alpha = 0.5f)
     } else {
         todoItemBackgroundColor
     }
 
-    val textColor = if (todoItem.isDone) {
+    val textColor = if (todoItem.completed) {
         todoItemTextColor.copy(alpha = 0.5f)
     } else {
         todoItemTextColor
     }
 
-    val textDecoration = if (todoItem.isDone) TextDecoration.LineThrough else null
+    val textDecoration = if (todoItem.completed) TextDecoration.LineThrough else null
 
-    val iconId = if (todoItem.isDone) {
+    val iconId = if (todoItem.completed) {
         R.drawable.ic_check_box_checked
     } else {
         R.drawable.ic_check_box_unchecked
     }
 
-    val iconColorFilter = if (todoItem.isDone) {
+    val iconColorFilter = if (todoItem.completed) {
         ColorFilter.tint(todoItemIconColor.copy(alpha = 0.5f))
     } else {
         ColorFilter.tint(todoItemIconColor)
     }
 
-    val iconTintColor = if (todoItem.isDone) {
+    val iconTintColor = if (todoItem.completed) {
         todoItemIconColor.copy(alpha = 0.5f)
     } else {
         todoItemIconColor
@@ -107,7 +107,7 @@ internal fun TodoListItem(
                 overflow = TextOverflow.Ellipsis,
                 textDecoration = textDecoration
             )
-            if (todoItem.isDone) {
+            if (todoItem.completed) {
                 IconButton(
                     onClick = { onItemDelete(todoItem) },
                     modifier = Modifier.size(TodoItemActionButtonRippleRadius)
@@ -131,14 +131,30 @@ private fun TodoListItemPreview() {
         modifier = Modifier.padding(MediumDp),
         verticalArrangement = Arrangement.spacedBy(MediumDp)
     ) {
-        TodoListItem(todoItem = TaskListItemModel(title = "Todo Item 1 asd asd asd asd asd asd asd asd asd asd"))
         TodoListItem(
             todoItem = TaskListItemModel(
-                title = "Todo Item 2 asd asd asd asd asd asd asd",
-                isDone = true
+                id = 1,
+                title = "Todo Item 1 asd asd asd asd asd asd asd asd asd asd"
             )
         )
-        TodoListItem(todoItem = TaskListItemModel(title = "Todo Item 3"))
-        TodoListItem(todoItem = TaskListItemModel(title = "Todo Item 4", isDone = true))
+        TodoListItem(
+            todoItem = TaskListItemModel(
+                id = 2,
+                title = "Todo Item 2 asd asd asd asd asd asd asd",
+                completed = true
+            )
+        )
+        TodoListItem(
+            todoItem = TaskListItemModel(
+                id = 3,
+                title = "Todo Item 3"
+            )
+        )
+        TodoListItem(
+            todoItem = TaskListItemModel(
+                id = 4,
+                title = "Todo Item 4", completed = true
+            )
+        )
     }
 }

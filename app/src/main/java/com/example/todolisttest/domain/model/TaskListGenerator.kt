@@ -22,13 +22,15 @@ object TaskListGenerator {
         return if (withRandomDone) {
             List(pageSize) { index ->
                 TaskListItemModel(
+                    id = page + index,
                     title = "Todo Item ${page + index}",
-                    isDone = Random.nextBoolean()
+                    completed = Random.nextBoolean()
                 )
             }
         } else {
             List(pageSize) { index ->
                 TaskListItemModel(
+                    id = page + index,
                     title = "Todo Item ${page + index}"
                 )
             }
