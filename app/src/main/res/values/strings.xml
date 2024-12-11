@@ -17,4 +17,7 @@
     <string name="settings_other">Other</string>
     <string name="settings_exit">Exit</string>
 
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+
 </resources>

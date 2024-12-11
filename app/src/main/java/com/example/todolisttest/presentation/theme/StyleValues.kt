@@ -11,3 +11,17 @@ val TodoItemTitleTextStyle = TextStyle(
     letterSpacing = 0.5.sp,
     color = Color.Unspecified
 )
+
+val DialogTitleTextStyle = TextStyle(
+    fontWeight = FontWeight.Normal,
+    fontSize = 20.sp,
+    letterSpacing = 0.25.sp,
+    color = Color.Unspecified
+)
+
+val DialogButtonTextStyle = TextStyle(
+    fontWeight = FontWeight.Normal,
+    fontSize = 16.sp,
+    letterSpacing = 0.25.sp,
+    color = Color.Unspecified
+)
