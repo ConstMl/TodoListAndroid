@@ -29,6 +29,7 @@ fun CustomModalNavigationDrawer(
     drawerState: DrawerState,
     themeMode: ThemeMode,
     onThemeClick: (ThemeMode) -> Unit,
+    onExitAppClick: () -> Unit,
     content: @Composable () -> Unit
 ) {
     ModalNavigationDrawer(
@@ -92,7 +93,7 @@ fun CustomModalNavigationDrawer(
                                 contentDescription = null
                             )
                         },
-                        onClick = { /* todo: exit app */ },
+                        onClick = { onExitAppClick.invoke() },
                     )
                     Spacer(Modifier.height(12.dp))
                 }

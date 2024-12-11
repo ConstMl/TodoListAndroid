@@ -25,7 +25,8 @@ internal fun TodoApp(
         CustomModalNavigationDrawer(
             drawerState = drawerState,
             themeMode = state.themeMode,
-            onThemeClick = viewModel::storeThemeMode
+            onThemeClick = viewModel::storeThemeMode,
+            onExitAppClick = viewModel::exitApp
         ) {
             CustomAppBar(
                 onMenuClick = {
@@ -36,7 +37,8 @@ internal fun TodoApp(
                             drawerState.close()
                         }
                     }
-                }
+                },
+                onExitAppClick = viewModel::exitApp
             ) { innerPadding ->
                 content(innerPadding)
             }

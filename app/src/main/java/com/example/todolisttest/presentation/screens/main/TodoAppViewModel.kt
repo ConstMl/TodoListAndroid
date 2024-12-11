@@ -3,6 +3,7 @@ package com.example.todolisttest.presentation.screens.main
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.todolisttest.data.cmmon.onSuccess
+import com.example.todolisttest.domain.usecase.ExitAppUseCase
 import com.example.todolisttest.domain.usecase.GetThemeModeUseCase
 import com.example.todolisttest.domain.usecase.StoreThemeModeUseCase
 import com.example.todolisttest.presentation.theme.ThemeMode
@@ -15,6 +16,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class TodoAppViewModel @Inject constructor(
+    private val exitAppUseCase: ExitAppUseCase,
     private val storeThemeModeUseCase: StoreThemeModeUseCase,
     private val getThemeModeUseCase: GetThemeModeUseCase,
 ) : ViewModel() {
@@ -39,5 +41,9 @@ class TodoAppViewModel @Inject constructor(
                 currentState.copy(themeMode = mode)
             }
         }
+    }
+
+    fun exitApp() = viewModelScope.launch {
+        exitAppUseCase.call(Unit)
     }
 }

@@ -25,6 +25,7 @@ import com.example.todolisttest.R
 @Composable
 fun CustomAppBar(
     onMenuClick: () -> Unit = {},
+    onExitAppClick: () -> Unit,
     content: @Composable (PaddingValues) -> Unit
 ) {
     val scrollBehavior = pinnedScrollBehavior(rememberTopAppBarState())
@@ -48,7 +49,7 @@ fun CustomAppBar(
                     }
                 },
                 actions = {
-                    IconButton(onClick = { /* todo: exit app */ }) {
+                    IconButton(onClick = { onExitAppClick.invoke() }) {
                         Icon(
                             imageVector = Icons.AutoMirrored.Filled.ExitToApp,
                             contentDescription = null
