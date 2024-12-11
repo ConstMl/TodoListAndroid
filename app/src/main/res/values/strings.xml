@@ -20,4 +20,6 @@
     <string name="yes">Yes</string>
     <string name="no">No</string>
 
+    <string name="confirm_remove_task_dialog_title">Are you sure you want to delete the task?</string>
+
 </resources>
