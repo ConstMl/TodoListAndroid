@@ -1,6 +1,6 @@
 package com.example.todolisttest.presentation.theme
 
-enum class ThemeType {
+enum class ThemeMode {
     SYSTEM,
     LIGHT,
     DARK

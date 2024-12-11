@@ -1,6 +1,6 @@
 package com.example.todolisttest.domain.model
 
-import com.example.todolisttest.data.datasources.TodoItemResponse
+import com.example.todolisttest.data.datasources.response.TodoItemResponse
 
 data class TaskListItemModel(
     val id: Int,

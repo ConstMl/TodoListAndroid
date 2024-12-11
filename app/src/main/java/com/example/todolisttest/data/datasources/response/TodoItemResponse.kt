@@ -1,4 +1,4 @@
-package com.example.todolisttest.data.datasources
+package com.example.todolisttest.data.datasources.response
 
 import com.google.gson.annotations.SerializedName
 

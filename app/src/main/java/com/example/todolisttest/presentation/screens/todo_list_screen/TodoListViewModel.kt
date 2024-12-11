@@ -10,7 +10,7 @@ import com.example.todolisttest.domain.usecase.GetTaskListUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.updateAndGet
+import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -55,7 +55,7 @@ class TodoListViewModel @Inject constructor(
     }
 
     fun onItemClick(item: TaskListItemModel) = viewModelScope.launch {
-        _state.updateAndGet { currentState ->
+        _state.update { currentState ->
             currentState.copy(
                 taskList = currentState.taskList.map { itm ->
                     if (itm.id == item.id) {
@@ -69,7 +69,7 @@ class TodoListViewModel @Inject constructor(
     }
 
     fun onItemRemove(item: TaskListItemModel) = viewModelScope.launch {
-        _state.updateAndGet { currentState ->
+        _state.update { currentState ->
             currentState.copy(
                 taskList = currentState.taskList.filter { itm -> itm.id != item.id }
             )

@@ -1,4 +1,4 @@
-package com.example.todolisttest
+package com.example.todolisttest.presentation.screens.main
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -29,16 +29,16 @@ import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.material3.rememberDrawerState
 import androidx.compose.material3.rememberTopAppBarState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import com.example.todolisttest.presentation.theme.ThemeType
+import androidx.hilt.navigation.compose.hiltViewModel
+import com.example.todolisttest.R
+import com.example.todolisttest.presentation.theme.ThemeMode
 import com.example.todolisttest.presentation.theme.TodoListTestTheme
 import kotlinx.coroutines.launch
 
@@ -47,14 +47,17 @@ import kotlinx.coroutines.launch
 internal fun TodoApp(
     content: @Composable (PaddingValues) -> Unit
 ) {
+    val viewModel = hiltViewModel<TodoAppViewModel>()
+    val state by viewModel.state.collectAsState()
+
     val drawerState = rememberDrawerState(initialValue = DrawerValue.Closed)
     val scope = rememberCoroutineScope()
 
     val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior(rememberTopAppBarState())
 
-    var themeType by remember { mutableStateOf(ThemeType.SYSTEM) }  // todo: save in store
+//    var themeMode by remember { mutableStateOf(ThemeMode.SYSTEM) }  // todo: save in store
 
-    TodoListTestTheme(themeType = themeType) {
+    TodoListTestTheme(themeMode = state.themeMode) {
         ModalNavigationDrawer(
             drawerContent = {
                 ModalDrawerSheet {
@@ -78,18 +81,18 @@ internal fun TodoApp(
                         )
                         NavigationDrawerItem(
                             label = { Text(stringResource(id = R.string.theme_mode_system)) },
-                            selected = themeType == ThemeType.SYSTEM,
-                            onClick = { themeType = ThemeType.SYSTEM }
+                            selected = state.themeMode == ThemeMode.SYSTEM,
+                            onClick = { viewModel.storeThemeMode(ThemeMode.SYSTEM) }
                         )
                         NavigationDrawerItem(
                             label = { Text(stringResource(id = R.string.theme_mode_light)) },
-                            selected = themeType == ThemeType.LIGHT,
-                            onClick = { themeType = ThemeType.LIGHT }
+                            selected = state.themeMode == ThemeMode.LIGHT,
+                            onClick = { viewModel.storeThemeMode(ThemeMode.LIGHT) }
                         )
                         NavigationDrawerItem(
                             label = { Text(stringResource(id = R.string.theme_mode_dark)) },
-                            selected = themeType == ThemeType.DARK,
-                            onClick = { themeType = ThemeType.DARK }
+                            selected = state.themeMode == ThemeMode.DARK,
+                            onClick = { viewModel.storeThemeMode(ThemeMode.DARK) }
                         )
 
                         HorizontalDivider(modifier = Modifier.padding(vertical = 8.dp))

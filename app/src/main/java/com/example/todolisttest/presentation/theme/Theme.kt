@@ -72,19 +72,19 @@ private val DarkColorScheme = darkColorScheme(
 
 @Composable
 fun TodoListTestTheme(
-    themeType: ThemeType = ThemeType.SYSTEM,
+    themeMode: ThemeMode = ThemeMode.SYSTEM,
     content: @Composable () -> Unit
 ) {
 
-    val colorScheme = when (themeType) {
-        ThemeType.SYSTEM -> if (isSystemInDarkTheme()) {
+    val colorScheme = when (themeMode) {
+        ThemeMode.SYSTEM -> if (isSystemInDarkTheme()) {
             DarkColorScheme
         } else {
             LightColorScheme
         }
 
-        ThemeType.LIGHT -> LightColorScheme
-        ThemeType.DARK -> DarkColorScheme
+        ThemeMode.LIGHT -> LightColorScheme
+        ThemeMode.DARK -> DarkColorScheme
     }
 
     MaterialTheme(
