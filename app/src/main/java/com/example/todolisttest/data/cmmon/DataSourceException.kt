@@ -1,9 +1,9 @@
 package com.example.todolisttest.data.cmmon
 
-sealed class DataSourceException(
-    val messageResource: Any?
-) : RuntimeException() {
-    class Unexpected(messageResource: Int) : DataSourceException(messageResource)
-    class Server(error: String) : DataSourceException(error)
-    class Message(error: String) : DataSourceException(error)
+import androidx.annotation.StringRes
+
+sealed class DataSourceException : RuntimeException() {
+    class Server(@StringRes id: Int, error: String) : DataSourceException()
+    class MessageRes(@StringRes id: Int) : DataSourceException()
+    class MessageString(message: String) : DataSourceException()
 }

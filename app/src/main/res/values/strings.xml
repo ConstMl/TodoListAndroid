@@ -1,4 +1,8 @@
 <resources>
     <string name="app_name">TodoListTest</string>
     <string name="app_bar_name">Todo List</string>
+
+    <string name="error_server">Server error</string>
+    <string name="error_server_body_null">Server success, but body is null</string>
+    <string name="error_empty_result">Data is empty</string>
 </resources>

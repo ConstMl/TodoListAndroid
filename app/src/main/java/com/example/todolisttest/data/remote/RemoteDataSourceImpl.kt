@@ -1,5 +1,6 @@
 package com.example.todolisttest.data.remote
 
+import com.example.todolisttest.R
 import com.example.todolisttest.data.cmmon.ClientResult
 import com.example.todolisttest.data.cmmon.DataSourceException
 import com.example.todolisttest.data.datasources.APIService
@@ -16,15 +17,16 @@ class RemoteDataSourceImpl(
                 val list = body.todos.map { TaskListItemModel.from(it) }
                 ClientResult.Success(list)
             } else {
-                ClientResult.Error(DataSourceException.Message("body is null"))
+                ClientResult.Error(DataSourceException.MessageRes(R.string.error_server_body_null))
             }
         } else {
-            ClientResult.Error(DataSourceException.Server("server error"))
+            ClientResult.Error(
+                DataSourceException.Server(
+                    id = R.string.error_server,
+                    error = response.message()
+                )
+            )
         }
-        // todo: return data remote data
-//        val data = TaskListGenerator.testList10Items
-//        val result = ClientResult.Success(data)
-//        return result
     }
 
     companion object {
