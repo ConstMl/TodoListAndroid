@@ -4,7 +4,10 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
-import com.example.todolisttest.presentation.theme.TodoListTestTheme
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.padding
+import androidx.compose.ui.Modifier
+import com.example.todolisttest.presentation.screens.todo_list_screen.TodoListScreen
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -13,8 +16,10 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
-            TodoListTestTheme {
-                TodoApp()
+            TodoApp { innerPadding ->
+                Box(modifier = Modifier.padding(innerPadding)) {
+                    TodoListScreen()
+                }
             }
         }
     }
