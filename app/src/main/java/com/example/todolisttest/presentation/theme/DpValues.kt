@@ -15,3 +15,9 @@ val TodoInputBarHeight: Dp = 64.dp
 val TodoInputBarFabSize: Dp = 40.dp
 
 val OverlappingHeight = TodoInputBarHeight
+
+enum class CircularProgressIndicatorSize(val size: Dp) {
+    SMALL(20.dp),
+    MEDIUM(34.dp),
+    BIG(64.dp)
+}
