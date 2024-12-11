@@ -1,5 +1,6 @@
 package com.example.todolisttest.di
 
+import com.example.todolisttest.data.datasources.APIService
 import com.example.todolisttest.data.local.ILocalDataSource
 import com.example.todolisttest.data.local.LocalDataSourceImpl
 import com.example.todolisttest.data.remote.IRemoteDataSource
@@ -18,8 +19,10 @@ object RepositoriesModule {
 
     @Provides
     @Singleton
-    fun provideRemoteDataSource(/* todo: add API */): IRemoteDataSource {
-        return RemoteDataSourceImpl()
+    fun provideRemoteDataSource(
+        apiService: APIService
+    ): IRemoteDataSource {
+        return RemoteDataSourceImpl(apiService)
     }
 
     @Provides

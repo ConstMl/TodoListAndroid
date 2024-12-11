@@ -33,7 +33,7 @@ class TodoListViewModel @Inject constructor(
 
     private fun initialLoad() = viewModelScope.launch {
         _state.emit(TodoListState(isLoading = true))
-        getAllTaskUseCase
+        getRemoteTaskListUseCase
             .call("")
             .onSuccess { data ->
                 _state.emit(
