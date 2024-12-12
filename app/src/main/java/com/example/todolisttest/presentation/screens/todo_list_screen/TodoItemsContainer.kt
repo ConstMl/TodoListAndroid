@@ -22,6 +22,7 @@ fun TodoItemsContainer(
     todoItems: List<TaskListItemModel> = listOf(),
     onItemClick: (TaskListItemModel) -> Unit = {},
     onItemLongClick: (TaskListItemModel) -> Unit = {},
+    onItemDoubleClick: (TaskListItemModel) -> Unit = {},
     onItemDelete: (TaskListItemModel) -> Unit = {},
     overlappingElementsHeight: Dp = 0.dp
 ) {
@@ -36,6 +37,7 @@ fun TodoItemsContainer(
                     todoItem = item,
                     onItemClick = onItemClick,
                     onItemLongClick = onItemLongClick,
+                    onItemDoubleClick = onItemDoubleClick,
                     onItemDelete = onItemDelete
                 )
             }

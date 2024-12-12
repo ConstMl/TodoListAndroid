@@ -42,6 +42,7 @@ internal fun TodoListItem(
     todoItem: TaskListItemModel,
     onItemClick: (TaskListItemModel) -> Unit = {},
     onItemLongClick: (TaskListItemModel) -> Unit = {},
+    onItemDoubleClick: (TaskListItemModel) -> Unit = {},
     onItemDelete: (TaskListItemModel) -> Unit = {},
 ) {
     val todoItemBackgroundColor = MaterialTheme.colorScheme.tertiaryContainer
@@ -93,7 +94,8 @@ internal fun TodoListItem(
                 .background(backgroundColor)
                 .combinedClickable(
                     onClick = { onItemClick(todoItem) },
-                    onLongClick = { onItemLongClick(todoItem) }
+                    onLongClick = { onItemLongClick(todoItem) },
+                    onDoubleClick = { onItemDoubleClick(todoItem) }
                 ),
             verticalAlignment = Alignment.CenterVertically,
         ) {

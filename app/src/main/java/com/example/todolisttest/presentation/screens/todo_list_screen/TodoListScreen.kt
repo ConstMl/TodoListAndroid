@@ -36,7 +36,8 @@ internal fun TodoListScreen() {
         TodoItemsContainer(
             todoItems = state.taskList,
             onItemClick = viewModel::onItemClick,
-            onItemLongClick = { item ->
+            onItemLongClick = { /* todo: ... */ },
+            onItemDoubleClick = { item ->
                 openMoreDialog = Pair(true, item.title)
             },
             onItemDelete = viewModel::onItemRemove,
