@@ -20,10 +20,10 @@ class TaskListViewModel @Inject constructor(
     private val getRemoteTaskListUseCase: GetRemoteTaskListUseCase
 ) : ViewModel() {
 
-    private val _state = MutableStateFlow(TaskScreenListState())
+    private val _state = MutableStateFlow(TaskListScreenListState())
     val state = _state.asStateFlow()
 
-    private fun setState(newState: TaskScreenListState) {
+    private fun setState(newState: TaskListScreenListState) {
         _state.value = newState
     }
 
@@ -32,12 +32,12 @@ class TaskListViewModel @Inject constructor(
     }
 
     private fun initialLoad() = viewModelScope.launch {
-        _state.emit(TaskScreenListState(isLoading = true))
+        _state.emit(TaskListScreenListState(isLoading = true))
         getRemoteTaskListUseCase
             .call("")
             .onSuccess { data ->
                 _state.emit(
-                    TaskScreenListState(
+                    TaskListScreenListState(
                         isLoading = false,
                         taskList = data
                     )
@@ -45,10 +45,10 @@ class TaskListViewModel @Inject constructor(
             }
             .onError { error ->
                 _state.emit(
-                    TaskScreenListState(
+                    TaskListScreenListState(
                         isLoading = false,
                         hasError = true,
-                        errorText = error.message
+                        errorText = error.msg
                     )
                 )
             }
