@@ -75,4 +75,80 @@ class TodoListViewModel @Inject constructor(
             )
         }
     }
+
+    fun showMultiSelection(item: TaskListItemModel) {
+        _state.update { currentState ->
+            currentState.copy(
+                isShowMultiSelectionPanel = true,
+                taskList = currentState.taskList.map { itm ->
+                    when {
+                        item.id == itm.id && !item.multiSelected ->
+                            itm.copy(multiSelected = true)
+
+                        item.id != itm.id && item.multiSelected ->
+                            itm.copy(multiSelected = false)
+
+                        else -> itm
+                    }
+                }
+            )
+        }
+    }
+
+    fun hideMultiSelection() = viewModelScope.launch {
+        _state.update { currentState ->
+            currentState.copy(
+                isShowMultiSelectionPanel = false,
+                taskList = currentState.taskList.map { itm ->
+                    if (itm.multiSelected) {
+                        itm.copy(multiSelected = false)
+                    } else {
+                        itm
+                    }
+                }
+            )
+        }
+    }
+
+    fun toggleMultiSelection() = viewModelScope.launch {
+        _state.update { currentState ->
+            val newMultiSelection = !currentState.isItemsMultiSelected
+            currentState.copy(
+                isItemsMultiSelected = newMultiSelection,
+                taskList = currentState.taskList.map { itm ->
+                    if (itm.multiSelected != newMultiSelection) {
+                        itm.copy(multiSelected = newMultiSelection)
+                    } else {
+                        itm
+                    }
+                }
+            )
+        }
+    }
+
+    fun toggleItemMultiSelection(item: TaskListItemModel) = viewModelScope.launch {
+        _state.update { currentState ->
+            val newTaskList = currentState.taskList.map { itm ->
+                if (item.id == itm.id) {
+                    itm.copy(multiSelected = !itm.multiSelected)
+                } else {
+                    itm
+                }
+            }
+            currentState.copy(
+                taskList = newTaskList,
+                isItemsMultiSelected = newTaskList.all { itm -> itm.multiSelected }
+            )
+        }
+    }
+
+    fun removeMultiSelection() = viewModelScope.launch {
+        _state.update { currentState ->
+            currentState.copy(
+                taskList = currentState.taskList.filter { itm ->
+                    !itm.multiSelected
+                }
+            )
+        }
+    }
 }

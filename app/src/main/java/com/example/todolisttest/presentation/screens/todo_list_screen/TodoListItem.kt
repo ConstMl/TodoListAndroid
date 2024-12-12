@@ -1,7 +1,7 @@
 package com.example.todolisttest.presentation.screens.todo_list_screen
 
+import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.ExperimentalFoundationApi
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.combinedClickable
 import androidx.compose.foundation.layout.Arrangement
@@ -15,6 +15,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.Checkbox
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
@@ -44,6 +45,8 @@ internal fun TodoListItem(
     onItemLongClick: (TaskListItemModel) -> Unit = {},
     onItemDoubleClick: (TaskListItemModel) -> Unit = {},
     onItemDelete: (TaskListItemModel) -> Unit = {},
+    onItemToggleMultiSelection: (TaskListItemModel) -> Unit = {},
+    isShowMultiSelection: Boolean = false
 ) {
     val todoItemBackgroundColor = MaterialTheme.colorScheme.tertiaryContainer
     val todoItemIconColor = MaterialTheme.colorScheme.tertiary
@@ -81,51 +84,67 @@ internal fun TodoListItem(
         todoItemIconColor
     }
 
-    Card(
-        modifier = Modifier
-            .fillMaxWidth()
-            .height(TodoItemHeight),
-        elevation = CardDefaults.cardElevation(defaultElevation = LargeDp),
-        shape = RoundedCornerShape(size = MediumDp)
-    ) {
-        Row(
+    Row(modifier = Modifier.fillMaxWidth()) {
+        Card(
             modifier = Modifier
-                .fillMaxSize()
-                .background(backgroundColor)
-                .combinedClickable(
-                    onClick = { onItemClick(todoItem) },
-                    onLongClick = { onItemLongClick(todoItem) },
-                    onDoubleClick = { onItemDoubleClick(todoItem) }
-                ),
-            verticalAlignment = Alignment.CenterVertically,
+                .weight(1f)
+                .height(TodoItemHeight),
+            elevation = CardDefaults.cardElevation(defaultElevation = LargeDp),
+            shape = RoundedCornerShape(size = MediumDp)
         ) {
-            Image(
-                painter = painterResource(id = iconId),
-                contentDescription = null,
+            Row(
                 modifier = Modifier
-                    .padding(MediumDp)
-                    .size(TodoItemIconSize),
-                colorFilter = iconColorFilter
-            )
-            Text(
-                text = todoItem.title,
-                modifier = Modifier.weight(1f),
-                style = TodoItemTitleTextStyle.copy(color = textColor),
-                maxLines = 1,
-                overflow = TextOverflow.Ellipsis,
-                textDecoration = textDecoration
-            )
-            if (todoItem.completed) {
-                IconButton(
-                    onClick = { onItemDelete(todoItem) },
-                    modifier = Modifier.size(TodoItemActionButtonRippleRadius)
-                ) {
-                    Icon(
-                        modifier = Modifier.size(TodoItemIconSize),
-                        painter = painterResource(id = R.drawable.ic_remove),
-                        contentDescription = null,
-                        tint = iconTintColor
+                    .fillMaxSize()
+                    .background(backgroundColor)
+                    .combinedClickable(
+                        onClick = {
+                            if (!isShowMultiSelection) {
+                                onItemClick.invoke(todoItem)
+                            } else {
+                                onItemToggleMultiSelection.invoke(todoItem)
+                            }
+                        },
+                        onLongClick = {
+                            if (!isShowMultiSelection) onItemLongClick.invoke(todoItem)
+                        },
+                        onDoubleClick = {
+                            if (!isShowMultiSelection) onItemDoubleClick.invoke(todoItem)
+                        }
+                    ),
+                verticalAlignment = Alignment.CenterVertically,
+            ) {
+                AnimatedVisibility(visible = isShowMultiSelection) {
+                    Checkbox(
+                        modifier = Modifier
+                            .size(TodoItemActionButtonRippleRadius),
+                        checked = todoItem.multiSelected,
+                        onCheckedChange = null
                     )
+                }
+                Text(
+                    text = todoItem.title,
+                    modifier = Modifier
+                        .padding(MediumDp)
+                        .weight(1f),
+                    style = TodoItemTitleTextStyle.copy(color = textColor),
+                    maxLines = 1,
+                    overflow = TextOverflow.Ellipsis,
+                    textDecoration = textDecoration
+                )
+                if (todoItem.completed) {
+                    IconButton(
+                        onClick = {
+                            if (!isShowMultiSelection) onItemDelete.invoke(todoItem)
+                        },
+                        modifier = Modifier.size(TodoItemActionButtonRippleRadius)
+                    ) {
+                        Icon(
+                            modifier = Modifier.size(TodoItemIconSize),
+                            painter = painterResource(id = R.drawable.ic_remove),
+                            contentDescription = null,
+                            tint = iconTintColor
+                        )
+                    }
                 }
             }
         }
@@ -143,26 +162,32 @@ private fun TodoListItemPreview() {
             todoItem = TaskListItemModel(
                 id = 1,
                 title = "Todo Item 1 asd asd asd asd asd asd asd asd asd asd"
-            )
+            ),
+            isShowMultiSelection = true
         )
         TodoListItem(
             todoItem = TaskListItemModel(
                 id = 2,
                 title = "Todo Item 2 asd asd asd asd asd asd asd",
                 completed = true
-            )
+            ),
+            isShowMultiSelection = true
         )
         TodoListItem(
             todoItem = TaskListItemModel(
                 id = 3,
-                title = "Todo Item 3"
+                title = "Todo Item 3",
+                multiSelected = true
             )
         )
         TodoListItem(
             todoItem = TaskListItemModel(
                 id = 4,
-                title = "Todo Item 4", completed = true
-            )
+                title = "Todo Item 4",
+                completed = true,
+                multiSelected = true
+            ),
+            isShowMultiSelection = true
         )
     }
 }

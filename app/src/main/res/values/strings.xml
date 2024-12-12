@@ -21,6 +21,6 @@
     <string name="no">No</string>
     <string name="ok">OK</string>
 
-    <string name="confirm_remove_task_dialog_title">Are you sure you want to delete the task?</string>
+    <string name="confirm_multi_selected_remove_task_dialog_title">Are you sure you want to delete all selected items?</string>
 
 </resources>

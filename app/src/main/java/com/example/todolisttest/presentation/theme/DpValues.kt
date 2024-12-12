@@ -9,7 +9,7 @@ val LargeDp: Dp = 16.dp
 
 val TodoItemHeight: Dp = 48.dp
 val TodoItemIconSize: Dp = 24.dp
-val TodoItemActionButtonRippleRadius: Dp = 32.dp
+val TodoItemActionButtonRippleRadius: Dp = 36.dp
 
 val TodoInputBarHeight: Dp = 64.dp
 val TodoInputBarFabSize: Dp = 40.dp

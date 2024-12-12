@@ -24,6 +24,8 @@ fun TodoItemsContainer(
     onItemLongClick: (TaskListItemModel) -> Unit = {},
     onItemDoubleClick: (TaskListItemModel) -> Unit = {},
     onItemDelete: (TaskListItemModel) -> Unit = {},
+    onItemToggleMultiSelection: (TaskListItemModel) -> Unit = {},
+    isShowMultiSelection: Boolean = false,
     overlappingElementsHeight: Dp = 0.dp
 ) {
     LazyColumn(
@@ -38,7 +40,9 @@ fun TodoItemsContainer(
                     onItemClick = onItemClick,
                     onItemLongClick = onItemLongClick,
                     onItemDoubleClick = onItemDoubleClick,
-                    onItemDelete = onItemDelete
+                    onItemDelete = onItemDelete,
+                    onItemToggleMultiSelection = onItemToggleMultiSelection,
+                    isShowMultiSelection = isShowMultiSelection
                 )
             }
         }

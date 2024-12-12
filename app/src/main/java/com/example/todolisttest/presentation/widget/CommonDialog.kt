@@ -102,6 +102,6 @@ internal fun CommonDialog(
 @Preview
 private fun CommonDialogPreview() {
     CommonDialog(
-        title = stringResource(id = R.string.confirm_remove_task_dialog_title)
+        title = stringResource(id = R.string.confirm_multi_selected_remove_task_dialog_title)
     )
 }
