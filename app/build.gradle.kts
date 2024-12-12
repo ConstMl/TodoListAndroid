@@ -7,11 +7,11 @@ plugins {
 }
 
 android {
-    namespace = "com.example.todolisttest"
+    namespace = "com.task.planner"
     compileSdk = 35
 
     defaultConfig {
-        applicationId = "com.example.todolisttest"
+        applicationId = "com.task.planner"
         minSdk = 24
         targetSdk = 35
         versionCode = 1
