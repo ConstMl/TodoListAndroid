@@ -1,6 +1,7 @@
 package com.example.todolisttest.presentation.screens.todo_list_screen
 
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -30,12 +31,14 @@ fun TodoItemsContainer(
         verticalArrangement = Arrangement.spacedBy(MediumDp)
     ) {
         items(todoItems, key = { it.id }) { item ->
-            TodoListItem(
-                todoItem = item,
-                onItemClick = onItemClick,
-                onItemLongClick = onItemLongClick,
-                onItemDelete = onItemDelete
-            )
+            Box(modifier = Modifier.animateItem()) {
+                TodoListItem(
+                    todoItem = item,
+                    onItemClick = onItemClick,
+                    onItemLongClick = onItemLongClick,
+                    onItemDelete = onItemDelete
+                )
+            }
         }
         item { Spacer(modifier = Modifier.height(overlappingElementsHeight)) }
     }
