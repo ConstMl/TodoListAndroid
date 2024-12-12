@@ -15,13 +15,20 @@ import com.example.todolisttest.domain.model.TaskListItemModel
 import com.example.todolisttest.presentation.theme.OverlappingHeight
 import com.example.todolisttest.presentation.widget.CommonDialog
 import com.example.todolisttest.presentation.widget.CustomCircularProgressIndicator
+import com.example.todolisttest.presentation.widget.InfoDialog
 
 @Composable
 internal fun TodoListScreen() {
     val viewModel = hiltViewModel<TodoListViewModel>()
     val state by viewModel.state.collectAsState()
-    var openRemoveDialog by remember { mutableStateOf(false) }
-    var taskForRemove by remember { mutableStateOf<TaskListItemModel?>(null) }
+
+    var openRemoveDialog by remember {
+        mutableStateOf(Pair<Boolean, TaskListItemModel?>(false, null))
+    }
+
+    var openMoreDialog by remember {
+        mutableStateOf(Pair<Boolean, String?>(false, ""))
+    }
 
     if (state.isLoading) {
         CustomCircularProgressIndicator(modifier = Modifier.fillMaxSize())
@@ -29,25 +36,34 @@ internal fun TodoListScreen() {
         TodoItemsContainer(
             todoItems = state.taskList,
             onItemClick = viewModel::onItemClick,
+            onItemLongClick = { item ->
+                openMoreDialog = Pair(true, item.title)
+            },
             onItemDelete = { item ->
-                taskForRemove = item
-                openRemoveDialog = true
+                openRemoveDialog = Pair(true, item)
             },
             overlappingElementsHeight = OverlappingHeight
         )
     }
-    if (openRemoveDialog) {
+
+    if (openRemoveDialog.first) {
         CommonDialog(
             title = stringResource(
                 id = R.string.confirm_remove_task_dialog_title
             ),
             onConfirm = {
-                taskForRemove?.let(viewModel::onItemRemove)
-                openRemoveDialog = false
+                openRemoveDialog.second?.let(viewModel::onItemRemove)
+                openRemoveDialog = Pair(false, null)
             },
             onCancel = {
-                openRemoveDialog = false
+                openRemoveDialog = Pair(false, null)
             }
         )
+    }
+
+    if (openMoreDialog.first) {
+        InfoDialog(title = openMoreDialog.second ?: "") {
+            openMoreDialog = Pair(false, null)
+        }
     }
 }

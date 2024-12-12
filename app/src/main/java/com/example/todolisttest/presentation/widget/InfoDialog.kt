@@ -2,8 +2,6 @@ package com.example.todolisttest.presentation.widget
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
@@ -13,7 +11,6 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
-import androidx.compose.material3.VerticalDivider
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -29,13 +26,12 @@ import com.example.todolisttest.presentation.theme.DialogButtonTextStyle
 import com.example.todolisttest.presentation.theme.DialogTitleTextStyle
 
 @Composable
-internal fun CommonDialog(
+internal fun InfoDialog(
     title: String,
-    onConfirm: () -> Unit = { },
-    onCancel: () -> Unit = { }
+    onDismiss: () -> Unit = { }
 ) {
     Dialog(
-        onDismissRequest = onCancel,
+        onDismissRequest = onDismiss,
         properties = DialogProperties(
             dismissOnBackPress = true,
             dismissOnClickOutside = true,
@@ -60,39 +56,19 @@ internal fun CommonDialog(
                 ),
                 textAlign = TextAlign.Center
             )
-            Row(
+            Button(
                 modifier = Modifier
                     .padding(vertical = 16.dp)
-                    .height(42.dp)
+                    .height(42.dp),
+                colors = ButtonDefaults.buttonColors(Color.Transparent),
+                onClick = { onDismiss.invoke() }
             ) {
-                Button(
-                    colors = ButtonDefaults.buttonColors(Color.Transparent),
-                    onClick = { onConfirm.invoke() }
-                ) {
-                    Text(
-                        text = stringResource(id = R.string.yes),
-                        style = DialogButtonTextStyle.copy(
-                            color = MaterialTheme.colorScheme.tertiary
-                        )
+                Text(
+                    text = stringResource(id = R.string.ok),
+                    style = DialogButtonTextStyle.copy(
+                        color = MaterialTheme.colorScheme.tertiary
                     )
-                }
-                VerticalDivider(
-                    modifier = Modifier
-                        .fillMaxHeight(.55f)
-                        .align(Alignment.CenterVertically),
-                    color = MaterialTheme.colorScheme.primary
                 )
-                Button(
-                    colors = ButtonDefaults.buttonColors(Color.Transparent),
-                    onClick = { onCancel.invoke() }
-                ) {
-                    Text(
-                        text = stringResource(id = R.string.no),
-                        style = DialogButtonTextStyle.copy(
-                            color = MaterialTheme.colorScheme.tertiary
-                        )
-                    )
-                }
             }
         }
     }
@@ -100,8 +76,8 @@ internal fun CommonDialog(
 
 @Composable
 @Preview
-private fun CommonDialogPreview() {
-    CommonDialog(
+private fun InfoDialogPreview() {
+    InfoDialog(
         title = stringResource(id = R.string.confirm_remove_task_dialog_title)
     )
 }

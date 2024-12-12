@@ -1,8 +1,9 @@
 package com.example.todolisttest.presentation.screens.todo_list_screen
 
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
+import androidx.compose.foundation.combinedClickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -35,11 +36,13 @@ import com.example.todolisttest.presentation.theme.TodoItemHeight
 import com.example.todolisttest.presentation.theme.TodoItemIconSize
 import com.example.todolisttest.presentation.theme.TodoItemTitleTextStyle
 
+@OptIn(ExperimentalFoundationApi::class)
 @Composable
 internal fun TodoListItem(
     todoItem: TaskListItemModel,
     onItemClick: (TaskListItemModel) -> Unit = {},
-    onItemDelete: (TaskListItemModel) -> Unit = {}
+    onItemLongClick: (TaskListItemModel) -> Unit = {},
+    onItemDelete: (TaskListItemModel) -> Unit = {},
 ) {
     val todoItemBackgroundColor = MaterialTheme.colorScheme.tertiaryContainer
     val todoItemIconColor = MaterialTheme.colorScheme.tertiary
@@ -88,7 +91,10 @@ internal fun TodoListItem(
             modifier = Modifier
                 .fillMaxSize()
                 .background(backgroundColor)
-                .clickable { onItemClick(todoItem) },
+                .combinedClickable(
+                    onClick = { onItemClick(todoItem) },
+                    onLongClick = { onItemLongClick(todoItem) }
+                ),
             verticalAlignment = Alignment.CenterVertically,
         ) {
             Image(
