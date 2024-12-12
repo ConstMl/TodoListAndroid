@@ -32,9 +32,9 @@ import com.task.planner.R
 import com.task.planner.domain.model.TaskListItemModel
 import com.task.planner.presentation.theme.LargeDp
 import com.task.planner.presentation.theme.MediumDp
-import com.task.planner.presentation.theme.TodoItemActionButtonRippleRadius
-import com.task.planner.presentation.theme.TodoItemHeight
-import com.task.planner.presentation.theme.TodoItemIconSize
+import com.task.planner.presentation.theme.TaskItemActionButtonRippleRadius
+import com.task.planner.presentation.theme.TaskItemHeight
+import com.task.planner.presentation.theme.TaskItemIconSize
 import com.task.planner.presentation.theme.TodoItemTitleTextStyle
 
 @OptIn(ExperimentalFoundationApi::class)
@@ -88,7 +88,7 @@ internal fun TaskListItem(
         Card(
             modifier = Modifier
                 .weight(1f)
-                .height(TodoItemHeight),
+                .height(TaskItemHeight),
             elevation = CardDefaults.cardElevation(defaultElevation = LargeDp),
             shape = RoundedCornerShape(size = MediumDp)
         ) {
@@ -116,7 +116,7 @@ internal fun TaskListItem(
                 AnimatedVisibility(visible = isShowMultiSelection) {
                     Checkbox(
                         modifier = Modifier
-                            .size(TodoItemActionButtonRippleRadius),
+                            .size(TaskItemActionButtonRippleRadius),
                         checked = taskItem.multiSelected,
                         onCheckedChange = null
                     )
@@ -136,10 +136,10 @@ internal fun TaskListItem(
                         onClick = {
                             if (!isShowMultiSelection) onItemDelete.invoke(taskItem)
                         },
-                        modifier = Modifier.size(TodoItemActionButtonRippleRadius)
+                        modifier = Modifier.size(TaskItemActionButtonRippleRadius)
                     ) {
                         Icon(
-                            modifier = Modifier.size(TodoItemIconSize),
+                            modifier = Modifier.size(TaskItemIconSize),
                             painter = painterResource(id = R.drawable.ic_remove),
                             contentDescription = null,
                             tint = iconTintColor
