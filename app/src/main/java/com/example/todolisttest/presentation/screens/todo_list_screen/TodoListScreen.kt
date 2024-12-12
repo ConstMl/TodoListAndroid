@@ -39,9 +39,10 @@ internal fun TodoListScreen() {
             onItemLongClick = { item ->
                 openMoreDialog = Pair(true, item.title)
             },
-            onItemDelete = { item ->
-                openRemoveDialog = Pair(true, item)
-            },
+            onItemDelete = viewModel::onItemRemove,
+//            onItemDelete = { item -> // todo: remove ?
+//                openRemoveDialog = Pair(true, item)
+//            },
             overlappingElementsHeight = OverlappingHeight
         )
     }
