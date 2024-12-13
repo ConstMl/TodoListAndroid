@@ -1,8 +1,7 @@
-package com.task.planner.data.remote
+package com.task.planner.data.datasources
 
 import com.task.planner.data.cmmon.ClientResult
 import com.task.planner.data.cmmon.DataSourceException
-import com.task.planner.data.datasources.NoConnectivityException
 import retrofit2.Response
 
 suspend fun <T> callClientResult(call: suspend () -> Response<T>): ClientResult<T> {
