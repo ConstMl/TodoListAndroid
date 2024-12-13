@@ -23,10 +23,6 @@ class TaskListViewModel @Inject constructor(
     private val _state = MutableStateFlow(TaskListScreenListState())
     val state = _state.asStateFlow()
 
-    private fun setState(newState: TaskListScreenListState) {
-        _state.value = newState
-    }
-
     init {
         initialLoad()
     }
