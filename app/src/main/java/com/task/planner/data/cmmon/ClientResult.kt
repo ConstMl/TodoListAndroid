@@ -14,3 +14,10 @@ inline fun <T : Any> ClientResult<T>.onError(action: (DataSourceException) -> Un
     if (this is ClientResult.Error) action(exception)
     return this
 }
+
+inline fun <T : Any, R : Any> ClientResult<T>.map(transform: (T) -> R): ClientResult<R> {
+    return when (this) {
+        is ClientResult.Error -> ClientResult.Error(this.exception)
+        is ClientResult.Success -> ClientResult.Success(transform.invoke(this.data))
+    }
+}
